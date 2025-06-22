@@ -1,13 +1,13 @@
 provider "azurerm" {
   features {}
-  
+
 }
 
 variable "prefix" {
   default = "go-web-app-devops"
 }
 resource "azurerm_resource_group" "main" {
-  name = "${var.prefix}-rg"
+  name     = "${var.prefix}-rg"
   location = "East US"
 }
 

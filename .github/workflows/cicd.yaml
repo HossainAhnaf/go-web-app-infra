@@ -1,0 +1,77 @@
+name: ci cd
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: HashiCorp - Setup Terraform
+        uses: hashicorp/setup-terraform@v3.1.2
+        with: 
+          terraform_version: 1.11.1
+
+      - name: run fmt
+        run: terraform fmt
+  
+  validate:
+    name: validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: HashiCorp - Setup Terraform
+        uses: hashicorp/setup-terraform@v3.1.2
+        with: 
+          terraform_version: 1.11.1
+      
+      - name: run init
+        run: terraform init 
+
+      - name: run validate
+        run: terraform validate
+  
+        
+  apply:
+    if: github.event_name == 'push'
+    name: apply
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: HashiCorp - Setup Terraform
+        uses: hashicorp/setup-terraform@v3.1.2
+        with: 
+          terraform_version: 1.11.1
+          
+      - name: run init
+        run: terraform init
+
+      - name: run apply
+        run: terraform apply
+
+  destroy:
+    if: github.event_name == 'push'
+    name: destroy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: HashiCorp - Setup Terraform
+        uses: hashicorp/setup-terraform@v3.1.2
+        with: 
+          terraform_version: 1.11.1
+          
+      - name: run init
+        run: terraform init
+
+      - name: run destroy
+        run: terraform destroy
