@@ -20,4 +20,9 @@ resource "azurerm_kubernetes_cluster" "main" {
     node_count = 1
     vm_size    = "Standard_B2s"
   }
+
+  identity {
+    type = "SystemAssigned"
+  }
+  dns_prefix = "${var.prefix}-k8s"
 }
