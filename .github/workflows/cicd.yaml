@@ -80,9 +80,6 @@ jobs:
         uses: hashicorp/setup-terraform@v3.1.2
         with: 
           terraform_version: 1.11.1
-          
-      - name: run init
-        run: terraform init
 
       - name: run destroy
         run: terraform destroy -auto-approve
