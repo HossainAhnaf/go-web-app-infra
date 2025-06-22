@@ -65,13 +65,14 @@ jobs:
         run: terraform init
 
       - name: run apply
-        run: terraform apply
+        run: terraform apply -auto-approve
 
   destroy:
     if: github.event_name == 'push'
     needs: [apply]
     name: destroy
     runs-on: ubuntu-latest
+    environment: production
     steps:
       - uses: actions/checkout@v4
       
@@ -84,4 +85,4 @@ jobs:
         run: terraform init
 
       - name: run destroy
-        run: terraform destroy
+        run: terraform destroy -auto-approve
