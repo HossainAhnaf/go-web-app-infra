@@ -12,6 +12,7 @@ crash.log
 *.tfvars
 *.tfvars.json
 
+
 # Override files (local-only)
 override.tf
 override.tf.json
@@ -34,3 +35,6 @@ override.tf.json
 
 # Windows system files
 Thumbs.db
+
+# Local environment variables
+.env
